@@ -1,5 +1,12 @@
 packages:
   - apps/*
   - packages/*
-allowBuilds:
-  esbuild: false
+
+nodeLinker: hoisted
+supportedArchitectures:
+  os:
+    - win32
+    - current
+  cpu:
+    - x64
+    - current

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import type { Product } from "@tot/shared-types";
+import { formatDate } from "@tot/shared-utils";
 
 const router = Router();
 
@@ -25,6 +26,18 @@ router.post("/", (req, res) => {
   };
 
   products.push(newProduct);
+
+  console.log(
+    `[products] Created "${newProduct.name}" (id: ${newProduct.id}) at ${formatDate(
+      new Date(),
+      {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+      },
+    )}`,
+  );
+
   res.status(201).json(newProduct);
 });
 

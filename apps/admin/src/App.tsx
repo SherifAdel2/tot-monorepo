@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Input } from "@tot/ui";
 import type { Product, User } from "@tot/shared-types";
+import { formatDate } from "@tot/shared-utils";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -11,6 +12,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [newProductName, setNewProductName] = useState("");
+  const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null);
 
   const fetchData = () => {
     return Promise.all([
@@ -20,6 +22,7 @@ export default function App() {
       .then(([productsData, usersData]) => {
         setProducts(productsData);
         setUsers(usersData);
+        setLastRefreshed(new Date());
       })
       .catch(() => setError("Could not reach the API. Is it running?"))
       .finally(() => setLoading(false));
@@ -64,7 +67,18 @@ export default function App() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">tot / admin</h1>
-            <p className="text-sm text-gray-500">Management dashboard</p>
+            <p className="text-sm text-gray-500">
+              Management dashboard
+              {lastRefreshed && (
+                <span className="ml-2 text-gray-400">
+                  · Last refreshed{" "}
+                  {formatDate(lastRefreshed, {
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}
+                </span>
+              )}
+            </p>
           </div>
           <Button onClick={handleRefresh}>Refresh</Button>
         </div>

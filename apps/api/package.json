@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@tot/shared-types": "workspace:*",
+    "@tot/shared-utils": "workspace:*",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^4.19.0"
