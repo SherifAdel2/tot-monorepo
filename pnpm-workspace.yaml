@@ -2,6 +2,11 @@ packages:
   - apps/*
   - packages/*
 
+allowBuilds:
+  "@parcel/watcher": true
+
+verifyDepsBeforeRun: false
+
 nodeLinker: hoisted
 supportedArchitectures:
   os:

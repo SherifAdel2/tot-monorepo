@@ -10,14 +10,20 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./web-components": "./dist/web-components.js",
+    "./dist/style.css": "./dist/style.css",
+    "./*": "./dist/*"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch"
+    "build": "vite build && vite build --config vite.config.wc.ts && tailwindcss -i src/index.css -o dist/style.css --minify",
+    "build:wc": "vite build --config vite.config.wc.ts",
+    "build:wc-css": "tailwindcss -i src/index.css -o dist/style.css --minify",
+    "build:all": "pnpm build",
+    "dev": "pnpm build"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
@@ -28,6 +34,11 @@
     "@vitejs/plugin-react": "^4.0.0",
     "typescript": "^5.0.0",
     "vite": "^5.0.0",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/cli": "^4.0.0"
+  },
+  "dependencies": {
+    "@r2wc/react-to-web-component": "^2.1.1"
   }
 }
